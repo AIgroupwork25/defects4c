@@ -96,7 +96,66 @@ Expected: a JSON response listing 263 defect IDs.
 
 ---
 
-## Step 7 — Install host-side Python dependencies
+## Step 7 — Set up Ollama and pull models
+
+The ablation pipeline makes API calls to an Ollama instance. The machine hosting Ollama acts as the LLM endpoint — its address is passed via the `OLLAMA_HOST` environment variable (default: `http://100.97.159.90:11434`).
+
+### Install Ollama (on the host machine serving the models)
+
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
+### Start the Ollama server
+
+```bash
+ollama serve
+```
+
+By default Ollama listens on `0.0.0.0:11434`. To expose it to other machines on the network, ensure port `11434` is open in your firewall.
+
+### Pull the required models
+
+```bash
+ollama pull llama3:8b
+ollama pull deepseek-coder:6.7b
+ollama pull mistral:7b
+```
+
+Each model will be downloaded and stored locally. Approximate sizes:
+
+| Model | Download size |
+|---|---|
+| `llama3:8b` | ~4.7 GB |
+| `deepseek-coder:6.7b` | ~3.8 GB |
+| `mistral:7b` | ~4.1 GB |
+
+### Verify models are available
+
+```bash
+ollama list
+```
+
+Expected output should show all three models listed.
+
+### Configure the pipeline to use your Ollama host
+
+When running the ablation pipeline from the host machine (or any machine that can reach the Ollama server), set `OLLAMA_HOST` to the Ollama machine's address:
+
+```bash
+OLLAMA_HOST=http://<ollama-machine-ip>:11434 ./run_abalation.sh llama3
+```
+
+Or export it for the session:
+
+```bash
+export OLLAMA_HOST=http://<ollama-machine-ip>:11434
+./run_abalation.sh all
+```
+
+---
+
+## Step 8 — Install host-side Python dependencies
 
 The ablation pipeline runs on the host machine (not inside the container).
 
@@ -106,7 +165,7 @@ pip install openai requests
 
 ---
 
-## Step 8 — Run the ablation pipeline
+## Step 9 — Run the ablation pipeline
 
 The pipeline is located in `pipelines/`. The launcher script `run_abalation.sh` runs all five augmentation subsets for a given model.
 
