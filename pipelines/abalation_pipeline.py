@@ -89,7 +89,7 @@ def extract_code(llm_response: str) -> str:
     return llm_response.strip()
 
 
-def build_messages(base_prompts: list, augment: str, jin_data: dict) -> tuple:
+def build_messages(base_prompts: list, augment: str, va_data: dict) -> tuple:
     """
     Returns (messages, system_msg, user_msg) where messages is the final list
     sent to the LLM, and system_msg/user_msg are the final strings for logging.
@@ -104,16 +104,16 @@ def build_messages(base_prompts: list, augment: str, jin_data: dict) -> tuple:
 
     # Build augmented system message
     system_parts = [BASE_SYSTEM_PROMPT]
-    if "loc" in active and jin_data.get("localisation"):
-        system_parts.append(f"Fault localisation: {jin_data['localisation']}")
-    if "type" in active and jin_data.get("classification"):
-        system_parts.append(f"Bug classification: {jin_data['classification']}")
+    if "loc" in active and va_data.get("localisation"):
+        system_parts.append(f"Fault localisation: {va_data['localisation']}")
+    if "type" in active and va_data.get("classification"):
+        system_parts.append(f"Bug classification: {va_data['classification']}")
     system_msg = "\n".join(system_parts)
 
     # Build augmented user message
     user_msg = next(m["content"] for m in base_prompts if m["role"] == "user")
-    if "retrieval" in active and jin_data.get("retrieval"):
-        user_msg = user_msg + f"\n\nSimilar examples:\n{jin_data['retrieval']}"
+    if "retrieval" in active and va_data.get("retrieval"):
+        user_msg = user_msg + f"\n\nSimilar examples:\n{va_data['retrieval']}"
 
     messages = [{"role": "system", "content": system_msg}]
     for m in base_prompts:
@@ -127,10 +127,10 @@ def build_messages(base_prompts: list, augment: str, jin_data: dict) -> tuple:
     return messages, system_msg, user_msg
 
 
-def call_jin(jin_base_url: str, code: str) -> dict:
+def call_va(va_base_url: str, code: str) -> dict:
     try:
         resp = requests.post(
-            f"{jin_base_url}/inference/",
+            f"{va_base_url}/inference/",
             headers={"Content-Type": "application/json"},
             json={"code": code},
             timeout=120,
@@ -140,7 +140,7 @@ def call_jin(jin_base_url: str, code: str) -> dict:
         return {"localisation": "", "classification": "", "retrieval": "", "error": str(e)}
 
 
-def format_patch_block(idx: int, total: int, bug_id: str, jin_data: dict,
+def format_patch_block(idx: int, total: int, bug_id: str, va_data: dict,
                         augment: str, system_msg: str, user_msg: str,
                         patch: str, compile_result: bool, fix_result: bool) -> str:
     sha = bug_id.split("@")[-1]
@@ -159,13 +159,13 @@ def format_patch_block(idx: int, total: int, bug_id: str, jin_data: dict,
     ]
 
     if augment != "vanilla":
-        lines.append("JIN outputs:")
+        lines.append("VA outputs:")
         if "loc" in active:
-            lines.append(f"  localisation : {jin_data.get('localisation', 'N/A')}")
+            lines.append(f"  localisation : {va_data.get('localisation', 'N/A')}")
         if "type" in active:
-            lines.append(f"  classification: {jin_data.get('classification', 'N/A')}")
+            lines.append(f"  classification: {va_data.get('classification', 'N/A')}")
         if "retrieval" in active:
-            retrieval = str(jin_data.get('retrieval', 'N/A'))
+            retrieval = str(va_data.get('retrieval', 'N/A'))
             lines.append(f"  retrieval    : {retrieval[:300]}{'...' if len(retrieval) > 300 else ''}")
 
     lines += [
@@ -187,14 +187,14 @@ def format_patch_block(idx: int, total: int, bug_id: str, jin_data: dict,
 
 def process_defect(bug_id: str, augment: str, client: OpenAI, model: str,
                    temperature: float, seed: int, candidates: int,
-                   jin_base_url: str, cve_entries: dict) -> dict:
+                   va_base_url: str, cve_entries: dict) -> dict:
     result = {
         "bug_id":         bug_id,
         "patch_built":    False,
         "fixed":          False,
         "return_code":    None,
         "error":          "",
-        "jin_data":       {},
+        "va_data":       {},
         "system_msg":     "",
         "user_msg":       "",
         "extracted_patch": "",
@@ -224,20 +224,20 @@ def process_defect(bug_id: str, augment: str, client: OpenAI, model: str,
             for m in base_prompts
         ]
 
-    # Step 2: Call JIN with the actual vulnerable code (skip if vanilla)
-    jin_data = {}
+    # Step 2: Call VA with the actual vulnerable code (skip if vanilla)
+    va_data = {}
     if augment.lower() != "vanilla":
-        code_for_jin = vulnerable_code
-        if code_for_jin is None:
+        code_for_va = vulnerable_code
+        if code_for_va is None:
             # Fallback: extract whatever is in the user message
             user_content = next(m["content"] for m in base_prompts if m["role"] == "user")
             code_match = re.search(r"```(?:cpp|c)?\n(.*?)\n```", user_content, re.DOTALL)
-            code_for_jin = code_match.group(1) if code_match else user_content
-        jin_data = call_jin(jin_base_url, code_for_jin)
-    result["jin_data"] = jin_data
+            code_for_va = code_match.group(1) if code_match else user_content
+        va_data = call_va(va_base_url, code_for_va)
+    result["va_data"] = va_data
 
     # Step 3: Build augmented messages
-    messages, system_msg, user_msg = build_messages(base_prompts, augment, jin_data)
+    messages, system_msg, user_msg = build_messages(base_prompts, augment, va_data)
     result["system_msg"] = system_msg
     result["user_msg"] = user_msg
 
@@ -319,7 +319,7 @@ def main():
                         help="Model name (e.g. llama3:8b)")
     parser.add_argument("--augment",     default="vanilla",
                         choices=list(AUGMENT_LABEL_MAP.keys()),
-                        help="JIN augmentation subset")
+                        help="VA augmentation subset")
     parser.add_argument("--candidates",  type=int, default=1,
                         help="Number of patch candidates per bug (Pass@k)")
     parser.add_argument("--seed",        type=int, default=42,
@@ -328,8 +328,8 @@ def main():
                         help="LLM sampling temperature (use ~0.8 for pass@k diversity, ~0.0 for pass@1)")
     parser.add_argument("--ollama-host", default=os.getenv("OLLAMA_HOST", "http://100.97.159.90:11434"),
                         help="Ollama host URL")
-    parser.add_argument("--jin-host",    default=os.getenv("JIN_HOST", "http://100.78.242.59:8000"),
-                        help="JIN API host URL")
+    parser.add_argument("--va-host",    default=os.getenv("VA_HOST", "http://100.78.242.59:8000"),
+                        help="VA API host URL")
     parser.add_argument("--run-dir",     default=None,
                         help="Output directory for results (default: pipelines/experiments/<datetime>)")
     args = parser.parse_args()
@@ -372,12 +372,12 @@ def main():
         f"Timestamp       : {run_dt.strftime('%Y-%m-%d %H:%M:%S')}",
         f"Model           : {args.model}",
         f"Ablation        : {run_label}",
-        f"JIN augmentation: {augment_desc}",
+        f"VA augmentation: {augment_desc}",
         f"Candidates (k)  : {args.candidates}",
         f"Temperature     : {args.temperature}",
         f"Seed            : {args.seed}",
         f"Ollama host     : {args.ollama_host}",
-        f"JIN host        : {args.jin_host}",
+        f"VA host        : {args.va_host}",
         f"Base system prompt: {BASE_SYSTEM_PROMPT}",
         f"Total CVE cases : {total}",
         "=" * 60,
@@ -400,7 +400,7 @@ def main():
             temperature  = args.temperature,
             seed         = args.seed,
             candidates   = args.candidates,
-            jin_base_url = args.jin_host,
+            va_base_url = args.va_host,
             cve_entries  = cve_entries,
         )
         results.append(result)
@@ -416,7 +416,7 @@ def main():
             idx            = i,
             total          = total,
             bug_id         = bug_id,
-            jin_data       = result["jin_data"],
+            va_data       = result["va_data"],
             augment        = args.augment,
             system_msg     = result["system_msg"],
             user_msg       = result["user_msg"],

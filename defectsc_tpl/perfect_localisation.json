@@ -1,0 +1,666 @@
+[
+  {
+    "bug_id": "ClusterLabs___libqb@1bbaa929b77113532785c408dd1b41cd0521ffc8",
+    "category": "single_hunk",
+    "func_lines": 77,
+    "changed_lines": [
+      {
+        "line_in_func": 60,
+        "content": "\tmsg_len = qb_vsnprintf_serialize(chunk, max_size, cs->format, ap);"
+      },
+      {
+        "line_in_func": 61,
+        "content": "\tif (msg_len >= max_size) {"
+      },
+      {
+        "line_in_func": 62,
+        "content": "\t    chunk = msg_len_pt + sizeof(uint32_t); /* Reset */"
+      }
+    ]
+  },
+  {
+    "bug_id": "DaveGamble___cJSON@be749d7efa7c9021da746e685bd6dec79f9dd99b",
+    "category": "multi_hunk",
+    "func_lines": 27,
+    "changed_lines": [
+      {
+        "line_in_func": 13,
+        "content": "        while ((current_element != NULL) && (strcmp(name, current_element->string) != 0))"
+      }
+    ]
+  },
+  {
+    "bug_id": "OpenIDC___cjose@7325e9a5e71e2fc0e350487ecac7d84acdf0ed5e",
+    "category": "single_line",
+    "func_lines": 94,
+    "changed_lines": [
+      {
+        "line_in_func": 46,
+        "content": "    // set the expected GCM-mode authentication tag"
+      }
+    ]
+  },
+  {
+    "bug_id": "VirusTotal___yara@4a342f01e5439b9bb901aff1c6c23c536baeeb3f",
+    "category": "multi_hunk",
+    "func_lines": 50,
+    "changed_lines": [
+      {
+        "line_in_func": 18,
+        "content": "    count = yr_max(64, (index + 1) * 2);"
+      }
+    ]
+  },
+  {
+    "bug_id": "Yeraze___ytnef@3cb0f914d6427073f262e1b2b5fd973e3043cdf7",
+    "category": "single_line",
+    "func_lines": 111,
+    "changed_lines": [
+      {
+        "line_in_func": 56,
+        "content": "    data = calloc(size, sizeof(BYTE));"
+      }
+    ]
+  },
+  {
+    "bug_id": "curl___curl@1890d59905414ab84a35892b2e45833654aa5c13",
+    "category": "single_hunk",
+    "func_lines": 263,
+    "changed_lines": [
+      {
+        "line_in_func": 10,
+        "content": "    if('%' == *ptr) {"
+      }
+    ]
+  },
+  {
+    "bug_id": "dlundquist___sniproxy@f8d9a433fe22ab2fa15c00179048ab02ae23d583",
+    "category": "single_line",
+    "func_lines": 125,
+    "changed_lines": [
+      {
+        "line_in_func": 89,
+        "content": ""
+      }
+    ]
+  },
+  {
+    "bug_id": "jqlang___jq@71c2ab509a8628dbbad4bc7b3f98a64aa90d3297",
+    "category": "single_hunk",
+    "func_lines": 30,
+    "changed_lines": [
+      {
+        "line_in_func": 20,
+        "content": "    int len = jvp_dec_number_ptr(n)->digits + 14;"
+      }
+    ]
+  },
+  {
+    "bug_id": "libgd___libgd@1846f48e5fcdde996e7c27a4bbac5d0aef183e4b",
+    "category": "single_line",
+    "func_lines": 67,
+    "changed_lines": [
+      {
+        "line_in_func": 9,
+        "content": "\tif (overflow2(sizeof (unsigned char *), sy)) {"
+      }
+    ]
+  },
+  {
+    "bug_id": "libgd___libgd@2bb97f407c1145c850416a3bfbcc8cf124e68a19",
+    "category": "single_line",
+    "func_lines": 117,
+    "changed_lines": [
+      {
+        "line_in_func": 106,
+        "content": "\t\t};"
+      }
+    ]
+  },
+  {
+    "bug_id": "libgd___libgd@58b6dde319c301b0eae27d12e2a659e067d80558",
+    "category": "single_hunk",
+    "func_lines": 133,
+    "changed_lines": [
+      {
+        "line_in_func": 93,
+        "content": "\t\t\t"
+      }
+    ]
+  },
+  {
+    "bug_id": "libgd___libgd@69d2fd2c597ffc0c217de1238b9bf4d4bceba8e6",
+    "category": "single_line",
+    "func_lines": 127,
+    "changed_lines": [
+      {
+        "line_in_func": 92,
+        "content": "\t\tnc = (*ncx) * (*ncy);"
+      }
+    ]
+  },
+  {
+    "bug_id": "libgd___libgd@77f619d48259383628c3ec4654b1ad578e9eb40e",
+    "category": "single_hunk",
+    "func_lines": 83,
+    "changed_lines": [
+      {
+        "line_in_func": 9,
+        "content": "\tif (border < 0) {"
+      }
+    ]
+  },
+  {
+    "bug_id": "libuv___libuv@3530bcc30350d4a6ccf35d2f7b33e23292b9de70",
+    "category": "single_line",
+    "func_lines": 47,
+    "changed_lines": [
+      {
+        "line_in_func": 8,
+        "content": "  ds = d;"
+      }
+    ]
+  },
+  {
+    "bug_id": "lua___lua@1f3c6f4534c6411313361697d98d1145a1f030fa",
+    "category": "single_line",
+    "func_lines": 12,
+    "changed_lines": [
+      {
+        "line_in_func": 9,
+        "content": "    codestring(&key, varname);  /* key is variable name */"
+      }
+    ]
+  },
+  {
+    "bug_id": "nginx___njs@2e00e95473861846aa8538be87db07699d9f676d",
+    "category": "single_line",
+    "func_lines": 156,
+    "changed_lines": [
+      {
+        "line_in_func": 81,
+        "content": "            }"
+      }
+    ]
+  },
+  {
+    "bug_id": "nginx___njs@5c6130a2a0b4c41ab415f6b8992aa323636338b9",
+    "category": "single_hunk",
+    "func_lines": 24,
+    "changed_lines": [
+      {
+        "line_in_func": 21,
+        "content": "    njs_set_number(setval, num);"
+      },
+      {
+        "line_in_func": 22,
+        "content": ""
+      },
+      {
+        "line_in_func": 23,
+        "content": "    return NJS_OK;"
+      }
+    ]
+  },
+  {
+    "bug_id": "nginx___njs@81af26364c21c196dd21fb5e14c7fa9ce7debd17",
+    "category": "single_line",
+    "func_lines": 31,
+    "changed_lines": [
+      {
+        "line_in_func": 8,
+        "content": "    njs_set_array(&value, array);"
+      }
+    ]
+  },
+  {
+    "bug_id": "nginx___njs@8b39afdad9a0761e0a5d4af1a762bd9a6daef572",
+    "category": "single_hunk",
+    "func_lines": 205,
+    "changed_lines": [
+      {
+        "line_in_func": 154,
+        "content": "    if (njs_fast_path(fast_path)) {"
+      }
+    ]
+  },
+  {
+    "bug_id": "nginx___njs@ab1702c7af9959366a5ddc4a75b4357d4e9ebdc1",
+    "category": "single_hunk",
+    "func_lines": 58,
+    "changed_lines": [
+      {
+        "line_in_func": 13,
+        "content": "        length = dir->length;"
+      }
+    ]
+  },
+  {
+    "bug_id": "nginx___njs@d457c9545e7e71ebb5c0479eb16b9d33175855e2",
+    "category": "single_line",
+    "func_lines": 38,
+    "changed_lines": [
+      {
+        "line_in_func": 33,
+        "content": "    };"
+      }
+    ]
+  },
+  {
+    "bug_id": "nginx___njs@f65981b0b8fcf02d69a40bc934803c25c9f607ab",
+    "category": "single_hunk",
+    "func_lines": 37,
+    "changed_lines": [
+      {
+        "line_in_func": 17,
+        "content": "            value = array->start;"
+      },
+      {
+        "line_in_func": 18,
+        "content": "            length = array->length;"
+      },
+      {
+        "line_in_func": 19,
+        "content": ""
+      },
+      {
+        "line_in_func": 20,
+        "content": "            do {"
+      },
+      {
+        "line_in_func": 21,
+        "content": "                njs_set_invalid(value);"
+      },
+      {
+        "line_in_func": 22,
+        "content": "                value++;"
+      },
+      {
+        "line_in_func": 23,
+        "content": "                length--;"
+      },
+      {
+        "line_in_func": 24,
+        "content": "            } while (length != 0);"
+      },
+      {
+        "line_in_func": 25,
+        "content": ""
+      }
+    ]
+  },
+  {
+    "bug_id": "php___php-src@1cda0d7c2ffb62d8331c64e703131d9cabdc03ea",
+    "category": "single_hunk",
+    "func_lines": 45,
+    "changed_lines": [
+      {
+        "line_in_func": 26,
+        "content": "\t\t\t\treturn php_ifd_get32s(value, motorola_intel) / s_den;"
+      }
+    ]
+  },
+  {
+    "bug_id": "php___php-src@28a6ed9f9a36b9c517e4a8a429baf4dd382fc5d5",
+    "category": "single_hunk",
+    "func_lines": 51,
+    "changed_lines": [
+      {
+        "line_in_func": 23,
+        "content": "\t\t\tzval_ptr_dtor(value);"
+      }
+    ]
+  },
+  {
+    "bug_id": "php___php-src@863d37ea66d5c960db08d6f4a2cbd2518f0f80d1",
+    "category": "single_hunk",
+    "func_lines": 87,
+    "changed_lines": [
+      {
+        "line_in_func": 8,
+        "content": "\tif (border < 0) {"
+      }
+    ]
+  },
+  {
+    "bug_id": "php___php-src@b88393f08a558eec14964a55d3c680fe67407712",
+    "category": "single_hunk",
+    "func_lines": 18,
+    "changed_lines": [
+      {
+        "line_in_func": 7,
+        "content": "\t\t\tif (((st_entry *)stack->elements[i])->data)\t{"
+      }
+    ]
+  },
+  {
+    "bug_id": "redis___hiredis@76a7b10005c70babee357a7d0f2becf28ec7ed1e",
+    "category": "single_line",
+    "func_lines": 27,
+    "changed_lines": [
+      {
+        "line_in_func": 9,
+        "content": "        r->element = hi_calloc(elements,sizeof(redisReply*));"
+      }
+    ]
+  },
+  {
+    "bug_id": "redis___redis@bc7fe41e5857a0854d524e2a63a028e9394d2a5c",
+    "category": "single_line",
+    "func_lines": 47,
+    "changed_lines": [
+      {
+        "line_in_func": 10,
+        "content": "    if ((o = hashTypeLookupWriteOrCreate(c,c->argv[1])) == NULL) return;"
+      }
+    ]
+  },
+  {
+    "bug_id": "sqlite___sqlite@54d501092d88c0cf89bec4279951f548fb0b8618",
+    "category": "single_line",
+    "func_lines": 185,
+    "changed_lines": [
+      {
+        "line_in_func": 102,
+        "content": "      nPath = (int)strlen(zPath);"
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@061e7371a944588f231cb1b66d6fb070b646e376",
+    "category": "single_hunk",
+    "func_lines": 168,
+    "changed_lines": [
+      {
+        "line_in_func": 113,
+        "content": "\t\t\tif (len < 20)"
+      },
+      {
+        "line_in_func": 114,
+        "content": "\t\t\t\tND_PRINT((ndo,\" len=%d [bad: < 20]\", len));"
+      },
+      {
+        "line_in_func": 115,
+        "content": "\t\t\telse {"
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@29e5470e6ab84badbc31f4532bb7554a796d9d52",
+    "category": "single_line",
+    "func_lines": 117,
+    "changed_lines": [
+      {
+        "line_in_func": 44,
+        "content": "\tND_PRINT((ndo, \", Flags [%s]\","
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@2d669862df7cd17f539129049f6fb70d17174125",
+    "category": "single_hunk",
+    "func_lines": 36,
+    "changed_lines": [
+      {
+        "line_in_func": 10,
+        "content": "\tND_TCHECK(dp->ip6f_offlg);"
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@571a6f33f47e7a2394fa08f925e534135c29cf1e",
+    "category": "single_hunk",
+    "func_lines": 21,
+    "changed_lines": [
+      {
+        "line_in_func": 8,
+        "content": "    for (i = 1; i <= SYSTEM_ID_LEN; i++) {"
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@5d0d76e88ee2d3236d7e032589d6f1d4ec5f7b1e",
+    "category": "multi_hunk",
+    "func_lines": 155,
+    "changed_lines": [
+      {
+        "line_in_func": 62,
+        "content": "                ND_TCHECK2(*tptr, 4);"
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@6f5ba2b651cd9d4b7fa8ee5c4f94460645877c45",
+    "category": "single_line",
+    "func_lines": 24,
+    "changed_lines": [
+      {
+        "line_in_func": 19,
+        "content": "    }"
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@7335163a6ef82d46ff18f3e6099a157747241629",
+    "category": "single_line",
+    "func_lines": 12,
+    "changed_lines": [
+      {
+        "line_in_func": 8,
+        "content": "    ND_PRINT((ndo, \"seq 0x%03x, Flags [%s], length %u\","
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@7d3aba9f06899d0128ef46e8a2fa143c6fad8f62",
+    "category": "single_line",
+    "func_lines": 80,
+    "changed_lines": [
+      {
+        "line_in_func": 56,
+        "content": "\t\t\tND_PRINT((ndo, \"(ni: ho=0x%04x co=0x%04x)\","
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@8512734883227c11568bb35da1d48b9f8466f43f",
+    "category": "single_hunk",
+    "func_lines": 160,
+    "changed_lines": [
+      {
+        "line_in_func": 62,
+        "content": "\t\t\tND_PRINT((ndo,\"%04x:%04x \", panid, EXTRACT_LE_16BITS(p + 2)));"
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@88b2dac837e81cf56dce05e6e7b5989332c0092d",
+    "category": "single_line",
+    "func_lines": 120,
+    "changed_lines": [
+      {
+        "line_in_func": 17,
+        "content": "\t\tND_PRINT((ndo, \"\\n\\tOptions [%s]\","
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@8934a7d6307267d301182f19ed162563717e29e3",
+    "category": "single_line",
+    "func_lines": 117,
+    "changed_lines": [
+      {
+        "line_in_func": 57,
+        "content": "\t\tif (*p != IAC)"
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@979dcefd7b259e9e233f77fe1c5312793bfd948f",
+    "category": "single_hunk",
+    "func_lines": 100,
+    "changed_lines": [
+      {
+        "line_in_func": 28,
+        "content": "        if (!ND_TTEST2(*tptr, 1)) /* fetch status & prefix_len byte */"
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@a77ff09c46560bc895dea11dc9fe643486b056ac",
+    "category": "single_hunk",
+    "func_lines": 61,
+    "changed_lines": [
+      {
+        "line_in_func": 51,
+        "content": "        if (tlen < oid_len) {"
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@a7e5f58f402e6919ec444a57946bade7dfd6b184",
+    "category": "single_hunk",
+    "func_lines": 160,
+    "changed_lines": [
+      {
+        "line_in_func": 81,
+        "content": "\t\t\tND_PRINT((ndo,\"%04x:%s \", panid, le64addr_string(ndo, p + 2)));"
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@aa0858100096a3490edf93034a80e66a4d61aad5",
+    "category": "single_line",
+    "func_lines": 105,
+    "changed_lines": [
+      {
+        "line_in_func": 57,
+        "content": "\t\t\ttemp = EXTRACT_32BITS(bp);"
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@b8e559afaeb8fe0604a1f8e3ad4dc1445de07a00",
+    "category": "single_line",
+    "func_lines": 79,
+    "changed_lines": [
+      {
+        "line_in_func": 40,
+        "content": "\t\t\tND_PRINT((ndo, \"(refresh: %u)\","
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@ca336198e8bebccc18502de27672fdbd6eb34856",
+    "category": "multi_hunk",
+    "func_lines": 63,
+    "changed_lines": [
+      {
+        "line_in_func": 17,
+        "content": "\thdrlen = EXTRACT_LE_32BITS(&hdr->pkt_len);"
+      },
+      {
+        "line_in_func": 50,
+        "content": "\t\t\thdrlen += printer(ndo, h, p);"
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@e6511cc1a950fe1566b2236329d6b4bd0826cc7a",
+    "category": "single_line",
+    "func_lines": 61,
+    "changed_lines": [
+      {
+        "line_in_func": 52,
+        "content": "        ND_PRINT((ndo, \"\\n\\t    MTU size %u\", EXTRACT_16BITS(tptr + 4)));"
+      }
+    ]
+  },
+  {
+    "bug_id": "the-tcpdump-group___tcpdump@f76e7feb41a4327d2b0978449bbdafe98d4a3771",
+    "category": "multi_hunk",
+    "func_lines": 47,
+    "changed_lines": [
+      {
+        "line_in_func": 6,
+        "content": ""
+      },
+      {
+        "line_in_func": 11,
+        "content": ""
+      },
+      {
+        "line_in_func": 15,
+        "content": ""
+      },
+      {
+        "line_in_func": 24,
+        "content": ""
+      },
+      {
+        "line_in_func": 29,
+        "content": ""
+      },
+      {
+        "line_in_func": 31,
+        "content": ""
+      },
+      {
+        "line_in_func": 35,
+        "content": ""
+      },
+      {
+        "line_in_func": 39,
+        "content": ""
+      },
+      {
+        "line_in_func": 43,
+        "content": ""
+      }
+    ]
+  },
+  {
+    "bug_id": "uriparser___uriparser@864f5d4c127def386dd5cc926ad96934b297f04e",
+    "category": "single_line",
+    "func_lines": 79,
+    "changed_lines": [
+      {
+        "line_in_func": 43,
+        "content": "\t\t\t\tfirstItem = URI_FALSE;"
+      }
+    ]
+  },
+  {
+    "bug_id": "wez___atomicparsley@d72ccf06c98259d7261e0f3ac4fd8717778782c1",
+    "category": "single_hunk",
+    "func_lines": 102,
+    "changed_lines": [
+      {
+        "line_in_func": 2,
+        "content": "  char uint32_buffer[5];"
+      }
+    ]
+  },
+  {
+    "bug_id": "znc___znc@2390ad111bde16a78c98ac44572090b33c3bd2d8",
+    "category": "single_hunk",
+    "func_lines": 11,
+    "changed_lines": [
+      {
+        "line_in_func": 5,
+        "content": "            (pClient != this && (m_pNetwork->IsChan(Message.GetParam(0)) ||"
+      }
+    ]
+  },
+  {
+    "bug_id": "znc___znc@d229761821da38d984a9e4098ad96842490dc001",
+    "category": "single_line",
+    "func_lines": 48,
+    "changed_lines": [
+      {
+        "line_in_func": 15,
+        "content": "            if (sTarget.Equals(\"status\")) {"
+      }
+    ]
+  }
+]

@@ -1,6 +1,6 @@
 """
 test_ablation.py — smoke test for the ablation pipeline.
-Picks one random CVE test case, runs it through JIN (loc + classification only),
+Picks one random CVE test case, runs it through VA (loc + classification only),
 augments the prompt, sends to LLM, and saves results to a txt file.
 Hardcoded values are intentional — this is a dev/debug script.
 """
@@ -18,7 +18,7 @@ from openai import OpenAI
 # ── Hardcoded config ──────────────────────────────────────────────────────────
 DEFECTS4C_BASE_URL = "http://127.0.0.1:11111"
 OLLAMA_HOST        = "http://100.97.159.90:11434"
-JIN_HOST           = "http://100.78.242.59:8000"
+VA_HOST           = "http://100.78.242.59:8000"
 MODEL              = "deepseek-coder:6.7b"
 TEMPERATURE        = 0.01
 SEED               = 42
@@ -123,21 +123,21 @@ def main():
             for m in base_prompts
         ]
 
-    # Step 2: Call JIN with the actual vulnerable code
-    code_for_jin = vulnerable_code
-    if code_for_jin is None:
+    # Step 2: Call VA with the actual vulnerable code
+    code_for_va = vulnerable_code
+    if code_for_va is None:
         user_content = next(m["content"] for m in base_prompts if m["role"] == "user")
         code_match   = re.search(r"```(?:cpp|c)?\n(.*?)\n```", user_content, re.DOTALL)
-        code_for_jin = code_match.group(1) if code_match else user_content
+        code_for_va = code_match.group(1) if code_match else user_content
 
-    print("Calling JIN API...")
-    jin_resp       = requests.post(f"{JIN_HOST}/inference/",
+    print("Calling VA API...")
+    va_resp       = requests.post(f"{VA_HOST}/inference/",
                                    headers={"Content-Type": "application/json"},
-                                   json={"code": code_for_jin}, timeout=120)
-    jin_data       = jin_resp.json()
-    localisation   = jin_data.get("localisation", "")
-    classification = jin_data.get("classification", "")
-    retrieval      = jin_data.get("retrieval", "")
+                                   json={"code": code_for_va}, timeout=120)
+    va_data       = va_resp.json()
+    localisation   = va_data.get("localisation", "")
+    classification = va_data.get("classification", "")
+    retrieval      = va_data.get("retrieval", "")
     print(f"  localisation  : {localisation}")
     print(f"  classification: {classification}")
     print(f"  retrieval     : {str(retrieval)[:100]}")
@@ -221,7 +221,7 @@ def main():
         f"Bug ID : {bug_id}",
         f"SHA    : {sha}",
         "",
-        "JIN outputs:",
+        "VA outputs:",
         f"  localisation  : {localisation}",
         f"  classification: {classification}",
         f"  retrieval     : {str(retrieval)[:300]}{'...' if len(str(retrieval)) > 300 else ''}",

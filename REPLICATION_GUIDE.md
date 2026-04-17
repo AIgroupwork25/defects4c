@@ -11,7 +11,7 @@ This guide describes how to fully replicate the experimental setup and run the a
 - At least **80 GB** free disk space
 - At least **50 GB** RAM recommended
 - A running **Ollama** instance serving the LLM models under evaluation
-- A running **JIN API** server (fault localisation/classification/retrieval service)
+- A running **VA** server (fault localisation/classification/retrieval service)
 - Python 3.8+ on the host machine
 
 ---
@@ -130,7 +130,7 @@ cd pipelines
 | Variable | Default | Description |
 |---|---|---|
 | `OLLAMA_HOST` | `http://100.97.159.90:11434` | Ollama server URL |
-| `JIN_HOST` | `http://100.78.242.59:8000` | JIN API server URL |
+| `VA_HOST` | `http://100.78.242.59:8000` | VA API server URL |
 | `CANDIDATES` | `1` | Number of patch candidates per bug (set to `5` for Pass@5) |
 | `TEMPERATURE` | `0.01` (Pass@1) / `0.8` (Pass@k) | Sampling temperature |
 | `SEED` | `42` | Random seed for reproducibility |
@@ -145,9 +145,9 @@ OLLAMA_HOST=http://myserver:11434 CANDIDATES=5 ./run_abalation.sh deepseek
 
 ## Augmentation subsets
 
-The pipeline evaluates five conditions, each adding progressively more context from the JIN API:
+The pipeline evaluates five conditions, each adding progressively more context from the VA API:
 
-| Label | `--augment` value | JIN outputs injected |
+| Label | `--augment` value | VA outputs injected |
 |---|---|---|
 | Vanilla | `vanilla` | None (baseline) |
 | +Loc | `loc` | Fault localisation → system message |
@@ -166,15 +166,15 @@ pipelines/experiments/{timestamp}/{model}_{ablation}.txt
 ```
 
 Each file contains:
-- **Setup header** — model, ablation label, temperature, seed, candidates, base system prompt, JIN augmentation applied
-- **Per-patch blocks** — SHA, JIN outputs for that bug, prompt sent to LLM (system and user messages), extracted patch, compile result, fix result
+- **Setup header** — model, ablation label, temperature, seed, candidates, base system prompt, VA augmentation applied
+- **Per-patch blocks** — SHA, VA outputs for that bug, prompt sent to LLM (system and user messages), extracted patch, compile result, fix result
 - **Summary footer** — total cases, compile rate, Pass@k rate
 
 ---
 
 ## Test cases
 
-The pipeline evaluates on **52 CVE vulnerability test cases** from the Defects4C benchmark, drawn from all three granularity subsets in `buggy_errmsg_cve` (`single_function_repair`, `single_function_single_hunk_repair`, `single_function_single_line_repair`). Regardless of the original granularity label, the entire vulnerable function is extracted and fed to both the JIN API and the LLM, so all 52 cases are treated uniformly as single-function repair tasks.
+The pipeline evaluates on **52 CVE vulnerability test cases** from the Defects4C benchmark, drawn from all three granularity subsets in `buggy_errmsg_cve` (`single_function_repair`, `single_function_single_hunk_repair`, `single_function_single_line_repair`). Regardless of the original granularity label, the entire vulnerable function is extracted and fed to both the VA API and the LLM, so all 52 cases are treated uniformly as single-function repair tasks.
 
 ---
 

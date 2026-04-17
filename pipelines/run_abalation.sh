@@ -9,7 +9,7 @@
 #
 # Optional env overrides:
 #   OLLAMA_HOST=http://host:port ./run_abalation.sh llama3
-#   JIN_HOST=http://host:port    ./run_abalation.sh llama3
+#   VA_HOST=http://host:port    ./run_abalation.sh llama3
 #   CANDIDATES=5                 ./run_abalation.sh llama3   # Pass@5
 
 set -euo pipefail
@@ -18,7 +18,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PIPELINE="$SCRIPT_DIR/abalation_pipeline.py"
 
 OLLAMA_HOST="${OLLAMA_HOST:-http://100.97.159.90:11434}"
-JIN_HOST="${JIN_HOST:-http://100.78.242.59:8000}"
+VA_HOST="${VA_HOST:-http://100.78.242.59:8000}"
 CANDIDATES="${CANDIDATES:-1}"
 # Default temperature: greedy for pass@1, diverse for pass@k
 if [ -z "${TEMPERATURE:-}" ]; then
@@ -53,7 +53,7 @@ run_model() {
             --temperature  "$TEMPERATURE" \
             --seed         "$SEED" \
             --ollama-host  "$OLLAMA_HOST" \
-            --jin-host     "$JIN_HOST" \
+            --va-host     "$VA_HOST" \
             --run-dir      "$RUN_DIR"
     done
 }
@@ -83,7 +83,7 @@ case "${1:-}" in
         echo ""
         echo "Optional env overrides:"
         echo "  OLLAMA_HOST=http://host:port  (default: http://100.97.159.90:11434)"
-        echo "  JIN_HOST=http://host:port     (default: http://100.78.242.59:8001)"
+        echo "  VA_HOST=http://host:port     (default: http://100.78.242.59:8001)"
         echo "  CANDIDATES=5                  (default: 1, use 5 for Pass@5)"
         echo "  TEMPERATURE=0.8               (default: 0.01 for pass@1, 0.8 for pass@k)"
         echo "  SEED=42                       (default: 42)"
